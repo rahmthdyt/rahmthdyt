@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>rhmtfvnky.com</title>
+  <style>
+    /* CSS langsung di sini */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: #f1f1f1;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: auto;
+    }
+
+    ul#playlist {
+      list-style: none;
+      padding: 0;
+    }
+
+    ul#playlist li {
+      background-color: #333;
+      margin: 5px 0;
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    ul#playlist li:hover {
+      background-color: #555;
+    }
+
+    .player {
+      margin-top: 20px;
+    }
+
+    button#toggle-dark-mode {
+      padding: 10px 15px;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 6px;
+      background-color: #eee;
+      color: #000;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>SELAMAT DATANG</h1>
+ <button id="toggle-dark-mode">🌙 Mode Gelap</button>
+    <ul id="playlist"></ul>
+    <div class="player">
+      <audio id="audio" controls></audio>
+    </div>
+  </div>
+
+  <script>
+    const playlist = [
+      { title: "KLIK UNTUK MENDENGAR", file: "music/Lagu 2.mp3", isYoutube: false },
+      { title: "👇👇👇", file: "music/Lagu 1.mp3" },
+      { title: "SUBSCRIBE 🔔", file: "https://youtube.com/@dj.rahmtfvnky?si=fvQzMHXrNAhhLo5W", isYoutube: true }
+    ];
+
+    const playlistElement = document.getElementById("playlist");
+    const audioElement = document.getElementById("audio");
+    const nowPlaying = document.getElementById("now-playing");
+
+    playlist.forEach((lagu, index) => {
+      const item = document.createElement("li");
+      item.textContent = lagu.title;
+      item.addEventListener("click", () => {
+        playSong(index);
+      });
+      playlistElement.appendChild(item);
+    });
+
+    function playSong(index) {
+      const lagu = playlist[index];
+      if (lagu.isYoutube) {
+        window.open(lagu.file, "_blank");
+        nowPlaying.textContent = `Membuka di YouTube: ${lagu.title}`;
+        audioElement.pause();
+        audioElement.src = "";
+      } else {
+        audioElement.src = lagu.file;
+        audioElement.play();
+        nowPlaying.textContent = `Sedang diputar: ${lagu.title}`;
+      }
+    }
+
+    const toggleButton = document.getElementById("toggle-dark-mode");
+    toggleButton.addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+    });
+  </script>
+</body>
+</html>
